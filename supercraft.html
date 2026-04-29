@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <title>SUPERCRAFT UAE</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-image: url('SUPERCRAFT_LANDING_BG.png'); 
+      background-size: cover;      
+      background-position: center;  
+      background-repeat: no-repeat; 
+      background-attachment: fixed; 
+      }
+
+    
+    /* Dark overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    /* Main section */
+    .banner_ {
+      position: relative;
+      z-index: 10;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Logo */
+    .logo_cut {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    .logo_cut img {
+      height: 80px;
+    }
+
+    /* Buttons row */
+    .btn-row {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+
+    /* 3D Tilt Card — 3:4 ratio */
+    .card-scene {
+      perspective: 900px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .card-3d {
+      position: relative;
+      width: auto;
+      height: 320px;      /* 3:4 ratio */
+      border-radius: 20px;
+      transform-style: preserve-3d;
+      transition: transform 0.08s linear, box-shadow 0.3s ease;
+      will-change: transform;
+      overflow: hidden;
+      box-shadow:
+        0 20px 60px rgba(0,0,0,0.5),
+        0 6px 20px rgba(0,0,0,0.3);
+      border: 1.5px solid rgba(255,255,255,0.25);
+    }
+
+    .card-3d img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Glare layer */
+    .card-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.28) 0%, transparent 65%);
+      mix-blend-mode: screen;
+    }
+
+    /* Border glow on hover */
+    .card-3d::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      border: 1.5px solid rgba(255,255,255,0.0);
+      transition: border-color 0.3s ease;
+      pointer-events: none;
+    }
+
+    .card-scene:hover .card-glare     { opacity: 1; }
+    .card-scene:hover .card-3d::after  { border-color: rgba(255,255,255,0.45); }
+    .card-scene:hover .card-3d {
+      box-shadow:
+        0 32px 80px rgba(0,0,0,0.55),
+        0 12px 32px rgba(0,0,0,0.35);
+    }
+
+    .btn-label {
+      color: #fff;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-align: center;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+    }
+
+    .btn-sublabel {
+      color: rgba(255,255,255,0.7);
+      font-size: 12px;
+      text-align: center;
+      margin-top: -10px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Footer */
+    .footer_supercraft {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      padding: 14px 28px;
+    }
+
+    .footer_left p {
+      color: rgba(255,255,255);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .footer_left a {
+      color: #90c8f0;
+      text-decoration: none;
+    }
+
+    .footer_right {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      align-items: center;
+    }
+
+    .icon_ftr {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgb(0, 0, 0);
+      border: 1px solid rgba(255,255,255,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 15px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .icon_ftr:hover {
+      background: rgba(255,255,255,0.35);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 600px) {
+      .btn-row { gap: 20px; }
+      .card-3d { width: 140px; height: 187px; border-radius: 14px; }
+      .btn-label { font-size: 15px; }
+      .footer_right { justify-content: center; margin-top: 8px; }
+      .footer_left { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="background-image"></div>
+  <div class="overlay"></div>
+
+  <!-- Image Background Below -->
+  
+
+  <!-- Main Content -->
+  <section class="banner_">
+
+    <!-- Logo
+    <div class="logo_cut">
+      <a href="#"><img src="https://supercraftuae.com/images/logos/sgt-logo-final.jpg" alt="SUPERCRAFT UAE"></a>
+    </div>
+     -->
+
+    <!-- Two 3D Tilt Cards -->
+    <div class="btn-row">
+
+      <!-- TRADING -->
+      <a href="https://logiprompt.com/demo-supercraft/" class="card-scene" id="scene1">
+        <div class="card-3d" id="tilt1">
+          <img
+            src="https://logiprompt.com/demo-supercraft/wp-content/themes/supercraft-uae/supercraft-images/sgt-logo-final.jpg"
+            alt="SUPERCRAFT-TRADING"
+            onerror="this.src='https://placehold.co/210x280/1a3a5c/white?text=SUPERCRAFT-TRADING'"
+          />
+          <div class="card-glare" id="glare1"></div>
+        </div>
+        <div class="btn-label">SUPERCRAFT</div>
+        <div class="btn-sublabel">TRADING</div>
+      </a>
+
+      <!-- CONTRACTING -->
+      <a href="https://supercraftuae.com/" class="card-scene" id="scene2">
+        <div class="card-3d" id="tilt2">
+          <img
+            src="file:///D:/LP/SuperCraft/SUPERCRAFT_LANDING_BGG.png"
+            alt="SUPERCRAFT-CONTRACT"
+            onerror="this.src='https://placehold.co/210x280/1a3a5c/white?text=SUPERCRAFT-CONTRACTING'"
+          />
+          <div class="card-glare" id="glare2"></div>
+        </div>
+        <div class="btn-label">SUPERCRAFT</div>
+        <div class="btn-sublabel">CONTRACTING</div>
+      </a>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="footer_supercraft">
+      <div class="row align-items-center">
+        <div class="col-md-6 col-sm-12">
+          <div class="footer_left">
+            <p>&copy; Copyright © 2026 Supercraft General Trading LLC</p>
+            <p>All Right's Reserved | Developed by <a href="https://www.logiprompt.com">Logiprompt Techno Solutions India(P) Ltd</a></p>
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <div class="footer_right">
+            <a class="icon_ftr" href="https://www.facebook.com/" target="_blank" title="Facebook">
+              <i class="fa fa-facebook-f"></i>
+            </a>
+            <a class="icon_ftr" href="https://twitter.com/" target="_blank" title="Twitter">
+              <i class="fa fa-twitter"></i>
+            </a>
+            <a class="icon_ftr" href="https://www.instagram.com/" target="_blank" title="Instagram">
+              <i class="fa fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script>
+    function initTilt(sceneEl, tiltEl, glareEl) {
+      const MAX_TILT = 18;
+      const MAX_LIFT = 24;
+
+      sceneEl.addEventListener('mousemove', (e) => {
+        const rect = tiltEl.getBoundingClientRect();
+        const dx = (e.clientX - (rect.left + rect.width  / 2)) / (rect.width  / 2);
+        const dy = (e.clientY - (rect.top  + rect.height / 2)) / (rect.height / 2);
+
+        tiltEl.style.transform =
+          `perspective(900px) rotateX(${-dy * MAX_TILT}deg) rotateY(${dx * MAX_TILT}deg) translateZ(${MAX_LIFT}px) scale(1.04)`;
+        tiltEl.style.transition = 'transform 0.08s linear';
+
+        const gx = ((e.clientX - rect.left) / rect.width)  * 100;
+        const gy = ((e.clientY - rect.top)  / rect.height) * 100;
+        glareEl.style.background =
+          `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,0.30) 0%, transparent 62%)`;
+      });
+
+      sceneEl.addEventListener('mouseleave', () => {
+        tiltEl.style.transform =
+          'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(0px) scale(1)';
+        tiltEl.style.transition = 'transform 0.5s cubic-bezier(0.23, 1, 0.32, 1)';
+        glareEl.style.background =
+          'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.28) 0%, transparent 70%)';
+      });
+
+      sceneEl.addEventListener('mousedown', () => {
+        tiltEl.style.transform =
+          'perspective(900px) rotateX(0deg) rotateY(0deg) translateZ(6px) scale(1.01)';
+        tiltEl.style.transition = 'transform 0.1s ease';
+      });
+
+      sceneEl.addEventListener('mouseup', () => {
+        tiltEl.style.transition = 'transform 0.2s ease';
+      });
+    }
+
+    initTilt(
+      document.getElementById('scene1'),
+      document.getElementById('tilt1'),
+      document.getElementById('glare1')
+    );
+    initTilt(
+      document.getElementById('scene2'),
+      document.getElementById('tilt2'),
+      document.getElementById('glare2')
+    );
+  </script>
+
+</body>
+</html>
